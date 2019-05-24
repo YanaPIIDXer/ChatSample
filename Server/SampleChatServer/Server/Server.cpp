@@ -18,7 +18,7 @@ void Server::Broadcast(Peer *pFrom, const char *pData, unsigned int Size)
 {
 	for (auto It = PeerList.begin(); It != PeerList.end(); ++It)
 	{
-		if (It->expired() && It->lock().get() != pFrom)
+		if (!It->expired() && It->lock().get() != pFrom)
 		{
 			It->lock()->Send(pData, Size);
 		}
@@ -37,7 +37,7 @@ bool Server::Update()
 {
 	for (auto It = PeerList.begin(); It != PeerList.end();)
 	{
-		if (!It->expired())
+		if (It->expired())
 		{
 			It = PeerList.erase(It);
 		}
