@@ -90,7 +90,7 @@ namespace ChatSampleClient
 			{
 				MemoryStreamReader StreamReader = new MemoryStreamReader(Buffer);
 				PacketBroadcastMessage Packet = new PacketBroadcastMessage();
-				if(!Packet.Serialize(StreamReader))
+				if(!StreamReader.Serialize(Packet))
 				{
 					ChatField.Text += "PACKET SERIALIZE ERROR." + Environment.NewLine;
 					return;
