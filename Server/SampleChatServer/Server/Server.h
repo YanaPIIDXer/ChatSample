@@ -42,6 +42,9 @@ private:
 	// PeerƒŠƒXƒg
 	std::vector<PeerPtr> PeerList;
 
+	// ŽŸ‚Ì‚t‚t‚h‚c
+	int NextUuid;
+
 };
 
 #endif		// #ifndef __SERVER_H__

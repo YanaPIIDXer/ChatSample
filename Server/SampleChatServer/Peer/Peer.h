@@ -15,7 +15,7 @@ class Peer : public CPeerBase
 public:
 
 	// コンストラクタ
-	Peer(Server *pInServer, ISocket *pInSocket);
+	Peer(Server *pInServer, int InUuid, ISocket *pInSocket);
 
 	// デストラクタ
 	virtual ~Peer();
@@ -23,10 +23,16 @@ public:
 	// データを受信した。
 	virtual void OnRecv(const char *pData, unsigned int Size);
 
+	// UUID取得.
+	int GetUuid() const { return Uuid; }
+
 private:
 
 	// サーバ
 	Server *pServer;
+
+	// UUID
+	int Uuid;
 
 };
 

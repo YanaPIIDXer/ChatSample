@@ -1,10 +1,15 @@
 #include "Server.h"
 #include <functional>
 #include "../Peer/Peer.h"
+#include "../Packet/PacketMessage.h"
+#include "YanaPServer/Util/Stream/MemorySizeCaliculator.h"
+#include "YanaPServer/Util/Stream/MemoryStreamWriter.h"
+#include <iostream>
 
 // コンストラクタ
 Server::Server()
 	: CApplicationBase(std::bind(&Server::OnPeerConnected, this, std::placeholders::_1))
+	, NextUuid(1)
 {
 }
 
@@ -16,11 +21,25 @@ Server::~Server()
 // ブロードキャスト
 void Server::Broadcast(Peer *pFrom, const char *pData, unsigned int Size)
 {
+	PacketBroadcastMessage Packet;
+	Packet.Uuid = pFrom->GetUuid();
+	Packet.Message = pData;
+
+	CMemorySizeCaliculator SizeCaliculator;
+	Packet.Serialize(&SizeCaliculator);
+
+	CMemoryStreamWriter StreamWriter(SizeCaliculator.GetSize());
+	if (!Packet.Serialize(&StreamWriter))
+	{
+		std::cout << "Packet Serialize Failed." << std::endl;
+		return;
+	}
+
 	for (auto It = PeerList.begin(); It != PeerList.end(); ++It)
 	{
 		if (!It->expired() && It->lock().get() != pFrom)
 		{
-			It->lock()->Send(pData, Size);
+			It->lock()->Send(StreamWriter.GetBuffer(), StreamWriter.GetSize());
 		}
 	}
 }
@@ -29,7 +48,9 @@ void Server::Broadcast(Peer *pFrom, const char *pData, unsigned int Size)
 // Peer生成.
 CPeerBase *Server::CreatePeer(ISocket *pSocket)
 {
-	return new Peer(this, pSocket);
+	int Uuid = NextUuid;
+	NextUuid++;
+	return new Peer(this, Uuid, pSocket);
 }
 
 // 更新.

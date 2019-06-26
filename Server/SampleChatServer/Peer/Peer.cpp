@@ -2,9 +2,10 @@
 #include "../Server/Server.h"
 
 // コンストラクタ
-Peer::Peer(Server *pInServer, ISocket *pInSocket)
+Peer::Peer(Server *pInServer, int InUuid, ISocket *pInSocket)
 	: CPeerBase(pInSocket)
 	, pServer(pInServer)
+	, Uuid(InUuid)
 {
 }
 

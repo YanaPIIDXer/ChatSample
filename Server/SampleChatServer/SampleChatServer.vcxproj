@@ -125,6 +125,7 @@
     <ClCompile Include="Server\Server.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Packet\PacketMessage.h" />
     <ClInclude Include="Peer\Peer.h" />
     <ClInclude Include="Server\Server.h" />
   </ItemGroup>

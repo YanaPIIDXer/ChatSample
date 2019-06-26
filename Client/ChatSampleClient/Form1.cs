@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net.Sockets;
+using YanaPOnlineUtil.Stream;
 
 namespace ChatSampleClient
 {
@@ -87,7 +88,15 @@ namespace ChatSampleClient
 
 			if (RecvSize > 0)
 			{
-				ChatField.Text += "RECV:" + Encoding.UTF8.GetString(Buffer) + Environment.NewLine;
+				MemoryStreamReader StreamReader = new MemoryStreamReader(Buffer);
+				PacketBroadcastMessage Packet = new PacketBroadcastMessage();
+				if(!Packet.Serialize(StreamReader))
+				{
+					ChatField.Text += "PACKET SERIALIZE ERROR." + Environment.NewLine;
+					return;
+				}
+
+				ChatField.Text += "RECV FROM " + Packet.Uuid + ":" + Packet.Message + Environment.NewLine;
 				Sk.BeginReceive(Buffer, 0, BufferSize, SocketFlags.None, ReceiveCallback, Sk);
 			}
 		}
