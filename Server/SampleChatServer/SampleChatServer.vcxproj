@@ -76,11 +76,13 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(YANAP_SERVER_INCLUDE)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(YANAP_SERVER_INCLUDE);$(YANAP_ONLINE_UTIL_INCLUDE)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(YANAP_SERVER_LIB)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>kernel32.lib;YanaPServer.lib;ws2_32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(YANAP_SERVER_LIB);$(YANAP_ONLINE_UTIL_LIB)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;YanaPServer.lib;YanaPOnlineUtil.lib;ws2_32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>
+      </IgnoreAllDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

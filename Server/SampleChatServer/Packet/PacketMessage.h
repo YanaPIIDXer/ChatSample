@@ -1,10 +1,10 @@
 #ifndef __PACKETMESSAGE_H__
 #define __PACKETMESSAGE_H__
 
-#include "YanaPServer/Util/Serializable.h"
+#include "YanaPOnlineUtil/Serializable/Serializable.h"
 
-using namespace YanaPServer::Util;
-using namespace YanaPServer::Util::Stream;
+using namespace YanaPOnlineUtil;
+using namespace YanaPOnlineUtil::Stream;
 
 // メッセージブロードキャストパケット
 class PacketBroadcastMessage : public ISerializable

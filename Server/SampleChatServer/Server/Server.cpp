@@ -2,8 +2,8 @@
 #include <functional>
 #include "../Peer/Peer.h"
 #include "../Packet/PacketMessage.h"
-#include "YanaPServer/Util/Stream/MemorySizeCaliculator.h"
-#include "YanaPServer/Util/Stream/MemoryStreamWriter.h"
+#include "YanaPOnlineUtil/Stream/MemorySizeCaliculator.h"
+#include "YanaPOnlineUtil/Stream/MemoryStreamWriter.h"
 #include <iostream>
 
 // コンストラクタ
