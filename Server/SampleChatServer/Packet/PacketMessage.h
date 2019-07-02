@@ -2,12 +2,13 @@
 #define __PACKETMESSAGE_H__
 
 #include "YanaPOnlineUtil/Serializable/Serializable.h"
+#include "YanaPOnlineUtil/Stream/MemoryStream.h"
 
 using namespace YanaPOnlineUtil;
 using namespace YanaPOnlineUtil::Stream;
 
 // メッセージブロードキャストパケット
-class PacketBroadcastMessage : public ISerializable
+class PacketBroadcastMessage : public Serializable::ISerializable
 {
 
 public:
